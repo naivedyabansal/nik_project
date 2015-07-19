@@ -1,0 +1,61 @@
+<html>
+  <head>
+      <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+      <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+      <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+      <title>FINANCE|NLPCORE</title>
+      <style>
+        div.scrollable {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: auto;
+        }
+        table {
+        width: 100%;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 5px;
+        }
+        </style>
+    </head>
+  <body>
+     <form  action="{{ url_for('save') }}" method="POST">
+        <label for="fundname">Fund's name: </label>
+        <input id="fundname" name="fundname" type="text" value="{{ saves.get('fundname', '') }}">
+        <label for="filetype">&nbsp; &nbsp; Filing type: </label>
+          <input type="checkbox" id="filetype" name="filetype" value="N-CSR">N-CSR
+          <input type="checkbox" id="filetype" name="filetype" value="N-CSRS">N-CSRS
+        <label for="start_date">&nbsp; &nbsp; From: </label>
+        <input type="text" class = "datepicker" name="start_date"  value="{{ saves.get('start_date', '') }}">
+         <label for="end_date">To:</label>
+          <input type="text" class = "datepicker" name="end_date"  value="{{ saves.get('end_date', '') }}">&nbsp;
+          <input type="submit" value="SEARCH">
+      </form>
+       <br><br><br>
+    <table>
+    <tr>
+      <th>Fund Name:</th>
+      <th>Date Filed:</th>    
+      <th>Report Section</th>
+    </tr>
+    <tr>
+      <td>{{ saves.get('fundname', '') }}</td>
+      <td>2014</td>   
+      <td>
+        <div class="scrollable">
+              {{my_text|safe}}
+        </div>  
+      </td>
+    </tr>
+    </table>
+    <script src="static/js/script.js"></script>
+    <script type="text/javascript">
+      var optionValue  = "{{ saves.get('filetype', '') }}";
+       $("#filetype").find("option[value=" + optionValue +"]").attr('selected', true);    </script>
+  </body>
+</html>
